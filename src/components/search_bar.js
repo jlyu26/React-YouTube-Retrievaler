@@ -1,5 +1,5 @@
 import React, { Component } from 'react';	
-// '{ Component }'' equals to 'const Component = React.Component;'
+// '{ Component }' equals to 'const Component = React.Component;'
 
 // a function-based component:
 // const SearchBar = () => {
@@ -40,9 +40,9 @@ class SearchBar extends Component {
 		// Whenever reference a JavaScript variable inside JSX, we wrapped it with {}.
 		// JSX comment: {/* ... */}
 		return (
-			<div>
+			<div className="search-bar">
 				<input // the value of a 'controlled component' only changes when state changes.
-					value={this.state.term}	// initial value is an empty string (line 31).
+					value={this.state.term}	// initial value is an empty string (line 32).
 					// When user enter text, onChange handler runs, the value of the input has NOT changed.
 					// The event handler runs, updating this.state.term to new value
 					// Whenever setState() called, the conponent immediately rerenders,
@@ -51,10 +51,17 @@ class SearchBar extends Component {
 					// Finally the component finished rendering, and the new value of the input is then visible on the screen.
 					// KEY POINT: When user typing text, they didn't acturally change the input, but only trigger an event.
 					// And because we updated the state with that event, that causes the value input to change.
-					onChange={event => this.setState({ term: event.target.value })} />
+					// onChange={event => this.setState({ term: event.target.value })} />
+
+					onChange={event => this.onInputChange(event.target.value)} />
 				{/* Value of the input: {this.state.term} */}
 			</div>
 		)
+	}
+
+	onInputChange(term) {
+		this.setState({term});
+		this.props.onSearchTermChange(term);
 	}
 
 	// in ES5 style:
